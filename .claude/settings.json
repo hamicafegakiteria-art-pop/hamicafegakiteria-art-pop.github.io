@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Zernio__posts_create",
+      "mcp__Zernio__posts_update",
+      "mcp__Zernio__posts_edit_post",
+      "mcp__Zernio__posts_retry",
+      "mcp__Zernio__validate_post",
+      "mcp__Zernio__validate_media",
+      "mcp__Zernio__media_generate_upload_link",
+      "mcp__Zernio__media_check_upload_status"
+    ]
+  }
+}
