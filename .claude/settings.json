@@ -1,3 +1,5 @@
+2分前
+3 / 3
 {
   "permissions": {
     "allow": [
@@ -8,7 +10,8 @@
       "mcp__Zernio__validate_post",
       "mcp__Zernio__validate_media",
       "mcp__Zernio__media_generate_upload_link",
-      "mcp__Zernio__media_check_upload_status"
+      "mcp__Zernio__media_check_upload_status",
+      "mcp__Zernio__call_tool"
     ]
   },
   "hooks": {
@@ -18,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -c \"import sys,json;d=json.load(sys.stdin);t=d.get('tool_input') or {};a=t.get('arguments') or {};ok=t.get('name') in ('posts_create_post','posts_update_post','posts_update_post_metadata') and not a.get('publish_now') and not a.get('publishNow');print(json.dumps({'hookSpecificOutput':{'hookEventName':'PreToolUse','permissionDecision':'allow','permissionDecisionReason':'K 11/23: Zernio booking allowed'}}) if ok else '')\""
+            "command": "python3 -c \"import sys,json,re;d=json.load(sys.stdin);t=d.get('tool_input') or {};n=str(t.get('name',''));a=t.get('arguments') or {};w=n in ('posts_create_post','posts_update_post','posts_update_post_metadata');r=re.search('(^|_)(get|list|search|analytics|metrics|validate|check|docs|status)(_|$)',n) and not re.search('delete|unpublish|remove|disconnect|send|reply|hide|update|create|publish|retry',n);pn=bool(a.get('publish_now') or a.get('publishNow'));ok=(w or r) and not pn;print(json.dumps({'hookSpecificOutput':{'hookEventName':'PreToolUse','permissionDecision':'allow' if ok else 'deny','permissionDecisionReason':'K 11/23: Zernio booking/read only' if ok else 'K 11/23 rule: only booking and read tools via call_tool; ask K in words for anything else'}}))\""
           }
         ]
       }
