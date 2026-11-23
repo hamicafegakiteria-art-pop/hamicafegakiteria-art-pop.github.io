@@ -10,5 +10,19 @@
       "mcp__Zernio__media_generate_upload_link",
       "mcp__Zernio__media_check_upload_status"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__Zernio__call_tool",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys,json;d=json.load(sys.stdin);t=d.get('tool_input') or {};a=t.get('arguments') or {};ok=t.get('name') in ('posts_create_post','posts_update_post','posts_update_post_metadata') and not a.get('publish_now') and not a.get('publishNow');print(json.dumps({'hookSpecificOutput':{'hookEventName':'PreToolUse','permissionDecision':'allow','permissionDecisionReason':'K 11/23: Zernio booking allowed'}}) if ok else '')\""
+          }
+        ]
+      }
+    ]
   }
 }
+ 
